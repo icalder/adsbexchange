@@ -14,17 +14,9 @@ bash /tmp/axfeed.sh
 
 ## Creating the Filesystem
 
-```sh
-nix-shell -p debootstrap
-sudo debootstrap --variant=minbase --include=systemd,dbus,apt,locales,procps,bash-completion,curl,whiptail trixie ./fs
-# clean up apt cache etc. to reduce filesystem size
-sudo systemd-nspawn -D ./fs /bin/bash -c "
-  export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin;
-  apt-get clean;
-  rm -rf /var/lib/apt/lists/*;
-"
-sudo tar --numeric-owner --xattrs --xattrs-include='*' -cpzf rootfs.tar.gz -C fs .
-```
+The `rootfs.tar.gz` filesystem image is built automatically by GitHub Actions and published as a release artifact. This process is triggered whenever a new Git tag (e.g. `v1.0.0`) is pushed to the repository.
+
+You can download the latest `rootfs.tar.gz` from the **Releases** page for this repository.
 
 ## Running the Environment
 
