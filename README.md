@@ -16,7 +16,8 @@ bash /tmp/axfeed.sh
 
 ```sh
 nix-shell -p debootstrap
-sudo debootstrap --variant=minbase --include=systemd,dbus,apt,locales,bash-completion,curl,whiptail trixie ./fs
+sudo debootstrap --variant=minbase --include=systemd,dbus,apt,locales,procps,bash-completion,curl,whiptail trixie ./fs
+# clean up apt cache etc. to reduce filesystem size
 sudo systemd-nspawn -D ./fs /bin/bash -c "
   export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin;
   apt-get clean;
