@@ -24,7 +24,7 @@ jobs:
 
       - name: Build rootfs
         run: |
-          sudo debootstrap --variant=minbase --arch=arm64 --include=systemd,dbus,apt,locales,procps,bash-completion,curl,whiptail trixie ./fs
+          sudo debootstrap --variant=minbase --arch=arm64 --include=systemd,dbus,apt,locales,procps,bash-completion,curl,whiptail bookworm ./fs
           sudo systemd-nspawn -D ./fs /bin/bash -c "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; apt-get clean; rm -rf /var/lib/apt/lists/*;"
           sudo tar --numeric-owner --xattrs --xattrs-include='*' -cpzf rootfs.tar.gz -C fs .
 
@@ -32,6 +32,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: rootfs.tar.gz
-          body: "Debian trixie minimal nspawn root filesystem for Raspberry Pi (arm64)."
+          body: "Debian bookworm minimal nspawn root filesystem for Raspberry Pi (arm64)."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
