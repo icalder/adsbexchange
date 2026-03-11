@@ -1,2 +1,4 @@
-/rootfs.tar.gz
-/fs/
+/fs-*/
+/rootfs-*.tar.gz
+/result
+/.direnv/
